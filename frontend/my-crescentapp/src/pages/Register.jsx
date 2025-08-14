@@ -80,7 +80,7 @@ const Register = () => {
                                             type="text"
                                             name="first_name"
                                             placeholder='Enter First Name'
-                                            className='border mt-2 py-1 px-1 w-full'
+                                            className='border mt-2 py-1 px-1 w-100'
                                         />
                                         <ErrorMessage name="first_name" component="div" className="text-red-500 text-[12px]" />
                                     </div>

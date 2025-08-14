@@ -13,38 +13,37 @@ const Home = () => {
 
 
         <>
-            <Element>
+            <div className='pt-16'>
+                <Element name="hero">
+                    <HeroSection />
+                </Element>
 
-                <HeroSection />
-            </Element>
-            <Element name="hero">
-                <HeroSection />
-            </Element>
+                <Element name="about">
+                    <About />
+                </Element>
 
-            <Element name="about">
-                <About />
-            </Element>
+                <Element name="service">
+                    <Service />
+                </Element>
 
-            <Element name="service">
-                <Service />
-            </Element>
+                <Element name="faq">
+                    <FAQ />
+                </Element>
 
-            <Element name="faq">
-                <FAQ />
-            </Element>
+                <Element name="contact">
+                    <Contact />
+                </Element>
 
-            <Element name="contact">
-                <Contact />
-            </Element>
+                <Element name="terms">
+                    <Terms />
+                </Element>
 
-            <Element name="terms">
-                <Terms />
-            </Element>
+                <Element name="privacy">
+                    <PrivacyPolicy />
+                </Element>
+                <Footer />
 
-            <Element name="privacy">
-                <PrivacyPolicy />
-            </Element>
-            <Footer />
+            </div>
 
 
         </>

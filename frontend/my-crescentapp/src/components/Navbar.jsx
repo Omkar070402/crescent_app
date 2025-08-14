@@ -1,15 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import {  NavLink, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Link } from 'react-scroll';
 
 const Navbar = () => {
-
     const [token, setToken] = useState(localStorage.getItem('token'));
+    const [isScrolled, setIsScrolled] = useState(false);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         setToken(localStorage.getItem('token'));
+
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const handleLogout = () => {
@@ -17,21 +28,21 @@ const Navbar = () => {
         setToken(null);
         navigate('/login');
     };
-    return (
-        <div >
-            <div className='container flex justify-around p-5 bg-indigo-600 text-[13px] items-center text-white'>
 
-                <div className='nav-logo '>
-                    <img src="/logo.png" alt="" className='bg- h-[20px] mt-1 ' />
+    return (
+        <div>
+            <div
+                className={`container flex justify-around p-5 text-[13px] items-center fixed top-0 w-full z-20 transition-colors duration-300  
+                ${isScrolled ? 'bg-white text-black shadow-md' : 'bg-indigo-600 text-white border-b border-white'}
+                `}
+            >
+                <div className='nav-logo'>
+                    {
+                        isScrolled ? <img src="/dark-logo.png" alt="" className='h-[20px] mt-1' /> : <img src="/logo.png" alt="" className={`h-[20px] mt-1`} />
+                    }
+                    
                 </div>
-                <div className='flex gap-10  items-center cursor-pointer'>
-                    {/* <h5>Home</h5> */}
-                    {/* <h5>About</h5>
-                    <h5>Services</h5>
-                    <h5>FAQs</h5>
-                    <h5>contact</h5>
-                    <h5>Terms</h5>
-                    <h5>Policy</h5> */}
+                <div className='flex gap-10 items-center cursor-pointer'>
                     <Link to="hero" smooth={true} duration={500}>Home</Link>
                     <Link to="about" smooth={true} duration={500}>About</Link>
                     <Link to="service" smooth={true} duration={500}>Services</Link>
@@ -42,48 +53,37 @@ const Navbar = () => {
 
                     {token ? (
                         <>
-                            <div>
-                                <NavLink to={'/dashboard'}>
-                                    <button className='px-4 border border-green-600 rounded-sm h-[35px] cursor-pointer text-green-600 font-bold'>
-                                        Dashboard
-                                    </button>
-                                </NavLink>
-                            </div>
-                            <div>
-                                <button
-                                    onClick={handleLogout}
-                                    className='px-4 border border-red-600 rounded-sm h-[35px] cursor-pointer text-white font-bold'
-                                >
-                                    Logout
+                            <NavLink to={'/dashboard'}>
+                                <button className={`px-4 border rounded-sm h-[35px] cursor-pointer font-bold ${isScrolled ? 'border-green-600 text-green-600' : 'border-green-600 text-white'}`}>
+                                    Dashboard
                                 </button>
-                            </div>
+                            </NavLink>
+                            <button
+                                onClick={handleLogout}
+                                className='px-4 border border-red-600 rounded-sm h-[35px] cursor-pointer text-white font-bold'
+                            >
+                                Logout
+                            </button>
                         </>
                     ) : (
                         <>
-                            <div>
-                                <NavLink to={'/login'}>
-                                    <button className='px-4 border border-green-600 rounded-sm h-[35px] cursor-pointer text-green-600 font-bold'>
-                                        Login
-                                    </button>
-                                </NavLink>
-                            </div>
-                            <div>
-                                <NavLink to={'/register'}>
-                                    <button className='px-4 border border-green-600 rounded-sm h-[35px] cursor-pointer text-green-600 font-bold'>
-                                        Register
-                                    </button>
-                                </NavLink>
-                            </div>
+                            <NavLink to={'/login'}>
+                                <button className={`px-4 border rounded-sm h-[35px] cursor-pointer font-bold ${isScrolled ? 'border-green-600 text-green-600' : 'border-green-600 text-white'}`}>
+                                    Login
+                                </button>
+                            </NavLink>
+                            <NavLink to={'/register'}>
+                                <button className={`px-4 border rounded-sm h-[35px] cursor-pointer font-bold ${isScrolled ? 'border-green-600 text-green-600' : 'border-green-600 text-white'}`}>
+                                    Register
+                                </button>
+                            </NavLink>
                         </>
                     )}
-
                 </div>
             </div>
 
-
-            <hr className='text-gray-50' />
         </div>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
