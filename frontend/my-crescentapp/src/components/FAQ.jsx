@@ -55,7 +55,7 @@ const FAQ = () => {
                 {val.ques}
               </p>
               {
-                openQuestionId ? <CiCircleMinus size={25}/> : <CiCirclePlus size={25}/>
+                openQuestionId === val.id ? <CiCircleMinus size={25}/> : <CiCirclePlus size={25}/>
               }
             </div>
             {openQuestionId === val.id && <p className='mt-2 text-[13px]'>{val.ans}</p>}
